@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 import 'material-components-web/dist/material-components-web.css';
-import MeasureApi from './measure-api';
 import MeasureListItem from './measure-list-item';
+import { connect } from 'react-redux';
 
 class MeasureList extends Component {
 
-    state = { lista : [] };
-    measureApi = new MeasureApi();
-
     componentDidMount() {
+        this.props.dispatch({type: 'Listar'})
+    }
 
-        this.measureApi.list( list => {
-            this.setState({lista: list} );
-        });
-    };
+    itemClick(payload) {
+      this.props.dispatch({type: 'Edit', payload});
+    }
 
     render() {
 
-        const items = this.state.lista.map(
-            item => (<MeasureListItem item={item}/> )
+        const items = this.props.lista.map(
+            item => (<MeasureListItem item={item} onClick={this.itemClick.bind(this, item)}/> )
         );
 
         return (
@@ -31,4 +29,4 @@ class MeasureList extends Component {
     }
 }
 
-export default MeasureList;
+export default connect ((state) => ({lista: state.lista}) ) (MeasureList);
