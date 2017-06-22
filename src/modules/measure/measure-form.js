@@ -11,46 +11,32 @@ class MeasureForm extends Component {
     measureApi = new MeasureApi();
 
     saveNew = () => {
-        this.measureApi.create(this.state, () => {
-            this.clearState();
-            alert('Salvo com sucesso!');
-        });
+        // this.measureApi.create(this.state, () => {
+        //     this.clearState();
+        //     alert('Salvo com sucesso!');
+        // });
     };
 
-    saveEdit = () => {
-        this.measureApi.update(this.state, () => {
-            this.clearState();
-            alert('Salvo com sucesso!');
-        });
-    };
-
-    remove = () => {
-        this.measureApi.delete(this.state, () => {
-            this.clearState();
-            alert('Salvo com sucesso!');
-        })
-    };
-
-    clearState = () => {
-        //descobrir pq só a altura nao está sendo limpa qdo usa o this.initialstate
-        this.setState({
-            datacriacao: new Date().getTime(),
-            peso: '',
-            altura: '',
-            cintura: '',
-            abdomen: '',
-            quadril: '',
-            imc: '',
-        });
-    };
+    // saveEdit = () => {
+    //     this.measureApi.update(this.state, () => {
+    //         this.clearState();
+    //         alert('Salvo com sucesso!');
+    //     });
+    // };
+    //
+    // remove = () => {
+    //     this.measureApi.delete(this.state, () => {
+    //         this.clearState();
+    //         alert('Salvo com sucesso!');
+    //     })
+    // };
 
     updateInfo(field, event) {
         //atualizar via dispatch
-
-        const state = this.state;
-        state[field] = event.target.value;
-        state.imc = MeasureUtils.calcImc(state.altura, state.peso);
-        this.setState(state);
+        const payload = this.props.item;
+        payload[field] = event.target.value;
+        payload.imc = MeasureUtils.calcImc(payload.altura, payload.peso);
+        this.props.dispatch({type: 'UpdateIMC', payload});
     };
 
     jsx = (buttons) => {
@@ -61,7 +47,8 @@ class MeasureForm extends Component {
           {/*<FormItem label="Data: " type="date" onChange={this.saveDateInfo.bind(this, "data")}/>*/}
             <FormItem label="Altura (cm): " value={item.altura}
                       onChange={this.updateInfo.bind(this, "altura")}/>
-            <FormItem label="Peso(Kg): " value={item.peso} onChange={this.updateInfo.bind(this, "peso")}/>
+            <FormItem label="Peso(Kg): " value={item.peso}
+                      onChange={this.updateInfo.bind(this, "peso")}/>
             <FormItem label="Cintura (cm): " value={item.cintura}
                       onChange={this.updateInfo.bind(this, "cintura")}/>
             <FormItem label="Abdomen (cm): " value={item.abdomen}

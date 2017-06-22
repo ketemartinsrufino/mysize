@@ -8,7 +8,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import sagas from 'modules/measure/sagas';
+import sagas from 'modules/measure/sagas/sagas';
 
 class App extends Component {
 
@@ -28,7 +28,7 @@ class App extends Component {
             }
             return state;
           },
-          item: (state ={
+          item: (state = {
               key: '',
               datacriacao: new Date().getTime(),
               peso: '',
@@ -41,6 +41,8 @@ class App extends Component {
 
             if(action.type === 'Edit') {
               return action.payload;
+            } if (action.type === 'UpdateIMC') {
+                  return action.payload;
             }
             return state;
           }
