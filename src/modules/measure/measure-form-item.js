@@ -6,7 +6,7 @@ class FormItem extends Component {
         return (
             <div className="form-item">
                 <label> {this.props.label} </label>
-                <input type={type} value={this.props.value} onChange={this.props.onChange}/>
+                <input type={type} value={this.props.value} onChange={this.props.onChange} disabled={this.props.disabled}/>
             </div>
 
         );
