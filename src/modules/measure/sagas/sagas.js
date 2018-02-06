@@ -36,7 +36,7 @@ function* saveSuccessfull({ payload }) {
 }
 
 function* watchList() {
-  yield takeLatest('LISTAR' , listSuccessfull);
+  yield takeLatest('LOAD' , listSuccessfull);
 };
 
 function* watchSave() {

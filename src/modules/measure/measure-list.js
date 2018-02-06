@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import 'material-components-web/dist/material-components-web.css';
 import MeasureListItem from './measure-list-item';
 import { connect } from 'react-redux';
-import { listar } from './redux/actions';
+import { listar, getItems } from './redux/actions';
 
 class MeasureList extends Component {
 
     componentDidMount() {
-        this.props.listar()
+        this.props.getItems()
     }
 
     itemClick(payload) {
@@ -31,8 +31,10 @@ class MeasureList extends Component {
 
 const mapStateToProps = (state) => ({lista: state.lista});
 
-const mapDispatchToProps = dispatch => ({
-    listar: lista => dispatch(lista => listar(lista))
-});
+const mapDispatchToProps = dispatch => {
+    return {
+        getItems: () => dispatch(getItems())
+    }
+};
 
 export default  connect( mapStateToProps, mapDispatchToProps )(MeasureList);
