@@ -41,7 +41,7 @@ class MeasureForm extends Component {
                 <FormItem label="Quadril (cm): " value={quadril}
                           onChange={this.updateInfo.bind(this, "quadril")}
                 />
-                <div className="imc-result"><span>IMC: </span>32.65</div>
+                <div className="imc-result"><span>IMC: </span>{ imc }</div>
                 <div className="adicionar-resul">
                     <button className="mdc-button mdc-button--raised" 
                             onClick={() => this.props.save(this.props.item)}>
