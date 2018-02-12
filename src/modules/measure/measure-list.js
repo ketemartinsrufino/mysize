@@ -2,21 +2,23 @@ import React, { Component } from 'react';
 import 'material-components-web/dist/material-components-web.css';
 import MeasureListItem from './measure-list-item';
 import { connect } from 'react-redux';
-import { listar, getItems } from './redux/actions';
+import { loadItems, loadItem, deleteItem } from './redux/actions';
 
 class MeasureList extends Component {
 
     componentDidMount() {
-        this.props.getItems()
-    }
-
-    itemClick(payload) {
-      this.props.dispatch({type: 'EDITAR', payload});
+        this.props.getItems();
     }
 
     render() {
+
         const items = this.props.lista.map(
-            item => (<MeasureListItem item={item} key= {'aaa'} onClick={this.itemClick.bind(this, item)}/> )
+            (item, indice) => (<MeasureListItem 
+                                    key={`item-${indice}`} 
+                                    item={item} 
+                                    onEdit={this.props.getItem.bind(this, item.key)}
+                                    onDelete={this.props.delete.bind(this, item.key)}
+                                /> )
         );
 
         return (
@@ -33,7 +35,10 @@ const mapStateToProps = (state) => ({lista: state.lista});
 
 const mapDispatchToProps = dispatch => {
     return {
-        getItems: () => dispatch(getItems())
+        getItems: () => dispatch(loadItems()),
+        getItem: (key) => dispatch(loadItem(key)),
+        delete: (key) => dispatch(deleteItem(key))
+
     }
 };
 

@@ -1,39 +1,21 @@
 import React, { Component } from 'react';
 import FormItem from './measure-form-item';
 import MeasureUtils from './measure-utils';
-import MeasureFormNew from './measure-form-new';
-import MeasureFormEdit from './measure-form-edit';
 import { connect } from 'react-redux';
+import { saveItem, updateLocalItem } from './redux/actions';
 
 class MeasureForm extends Component {
-
-    saveNew = () => {
-        // this.measureApi.create(this.state, () => {
-        //     this.clearState();
-        //     alert('Salvo com sucesso!');
-        // });
-    };
-
-    saveEdit = () => {
-        this.props.dispatch({type: 'save', ...this.props.item });
-
-        this.measureApi.update(this.state, () => {
-            this.clearState();
-            alert('Salvo com sucesso!');
-        });
-    };
-    
 
     updateInfo(field, event) {
         //atualizar via dispatch
         const payload = { ...this.props.item };
         payload[field] = event.target.value;
         payload.imc = MeasureUtils.calcImc(payload.altura, payload.peso);
-        this.props.dispatch({type: 'UpdateIMC', payload });
+        this.props.updateLocal(payload);
     };
 
-    jsx = (buttons) => {
-      const item = this.props.item;
+    render() {
+        const item = this.props.item;
 
         return (
             <div className="form mdc-layout-grid__cell">
@@ -48,20 +30,23 @@ class MeasureForm extends Component {
                 <FormItem label="Quadril (cm): " value={item.quadril}
                             onChange={this.updateInfo.bind(this, "quadril")}/>
                 <FormItem label="IMC: " value={item.imc} disabled={true}/>
-
-            {buttons}
-
+                <div>
+                    <button className="mdc-button mdc-button--raised" 
+                            onClick={() => this.props.save(this.props.item)}>
+                            { this.props.item.key ? 'Salvar' : 'Adicionar' }
+                    </button>
+                </div>
             </div>
         )
-    };
-
-    render() {
-        if(!this.props.item.key) {
-            return <MeasureFormNew jsx={this.jsx} save={this.saveNew}/>
-        } else {
-            return <MeasureFormEdit jsx={this.jsx} save={this.saveEdit} remove={this.remove}/>
-        }
     }
 }
 
-export default connect ((state) => ({item: state.item}) ) (MeasureForm);
+const mapStateToProps = (state) => ({item: state.item});
+const mapDispatchToProps = dispatch => {
+    return {
+        save: (item) => dispatch(saveItem(item)),
+        //pesquisar se é a melhor forma ou se era melhor salvar essas mudanças locais no state mesmo
+        updateLocal: (item) => dispatch(updateLocalItem(item)) 
+    }
+};
+export default  connect( mapStateToProps, mapDispatchToProps )(MeasureForm);
