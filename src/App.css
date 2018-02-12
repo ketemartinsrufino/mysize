@@ -30,11 +30,43 @@
   display: flex;
   flex-direction: column;
   width: auto;
-  border: 1px red solid;
+  box-shadow: 2px 1px 6px rgba(0,0,0,0.3);
+  background: white;
+  padding: 16px;
+  margin: 15px;
+  position: relative;
+}
+
+i.far.fa-trash-alt {
+  border: 1px solid black;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+i.far.fa-trash-alt:hover {
+  background: #cccccc;
+}
+
+.mdc-list.mdc-layout-grid__cell {
+  grid-column-end: span 5;
+}
+
+.adicionar-resul {
+  text-align: right;
+}
+
+.imc-result {
+  padding: 15px 0 15px 0;
+  text-align: right;
+  font-size: 22px;
 }
 
 .form.mdc-layout-grid__cell {
-  padding-top: 20px;
+  padding-top: 20px;  
 }
 
 .form-item {
@@ -48,5 +80,19 @@
 }
 
 .form.mdc-layout-grid__cell {
-  width: 270px;
+  width: 320px;
+  grid-column-end: span 5;
+}
+
+.form.mdc-layout-grid__cell label {
+  padding: 10px 10px 0 0;
+  display: inline-block;
+  width: 200px;
+  text-align: left;
+}
+
+.form.mdc-layout-grid__cell input[type="number"] {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  font-size: 14px;
 }
