@@ -2,7 +2,6 @@ import {takeLatest, put} from 'redux-saga/effects';
 import {loadItems, clearForm, actionTypes} from 'modules/measure/redux/actions';
 
 function * saveSuccessfull({item}) {
-    console.log('item:', item);
     if (item.key) {
         update(item);
     } else {

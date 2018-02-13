@@ -1,10 +1,11 @@
+
 import React, { Component } from 'react';
 import 'material-components-web/dist/material-components-web.css';
 import MeasureListItem from './measure-list-item';
 import { connect } from 'react-redux';
 import { loadItems, loadItem, deleteItem } from './redux/actions';
 
-class MeasureList extends Component {
+class MeasureElementList extends Component {
 
     componentDidMount() {
         this.props.getItems();

@@ -17,6 +17,5 @@ const fetchItem = (ref) => {
 };
 
 export default function* watchEdit() {
-    console.log('---watchEdit ', actionTypes.LOAD_ITEM )
     yield takeLatest(actionTypes.LOAD_ITEM , getItem);
 };

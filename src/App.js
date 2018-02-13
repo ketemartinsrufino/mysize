@@ -33,12 +33,10 @@ class App extends Component {
         <Provider store = {this.store}>
           <div className="App">
             <Header/>
-              <div className="mdc-layout-grid">
-                  <div className="mdc-layout-grid__inner">
-                      <MeasureList/>
-                      <MeasureForm/>
-                  </div>
-              </div>
+            <div className="content">
+              <MeasureForm/>
+              <MeasureList/>
+            </div>
           </div>
         </Provider>
     );

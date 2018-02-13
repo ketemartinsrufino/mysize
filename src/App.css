@@ -32,9 +32,10 @@
   width: auto;
   box-shadow: 2px 1px 6px rgba(0,0,0,0.3);
   background: white;
-  padding: 16px;
+  padding: 15px;
   margin: 15px;
   position: relative;
+  min-width: 170px;
 }
 
 i.far.fa-trash-alt {
@@ -67,6 +68,7 @@ i.far.fa-trash-alt:hover {
 
 .form.mdc-layout-grid__cell {
   padding-top: 20px;  
+  margin-left: 10px;  
 }
 
 .form-item {
@@ -95,4 +97,16 @@ i.far.fa-trash-alt:hover {
   padding: 10px;
   border: 1px solid #cccccc;
   font-size: 14px;
+}
+
+.creation-date {
+  color: #8e8c8c;
+  font-size: 12px;
+}
+
+.item-info {
+  text-align: left;
+  font-size: 14px;
+  color: #383737;
+  margin: 5px 0;
 }
