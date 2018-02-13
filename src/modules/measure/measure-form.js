@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FormItem from './measure-form-item';
-import MeasureUtils from './measure-utils';
+import { calcImc } from './measure-utils';
 import { connect } from 'react-redux';
 import { saveItem, updateLocalItem } from './redux/actions';
 
@@ -9,31 +9,43 @@ class MeasureForm extends Component {
     updateInfo(field, event) {
         //atualizar via dispatch
         const payload = { ...this.props.item };
-        payload[field] = event.target.value;
-        payload.imc = MeasureUtils.calcImc(payload.altura, payload.peso);
+        payload[field] = event.target.value;        
         this.props.updateLocal(payload);
     };
 
     render() {
-        const item = this.props.item;
+        const { 
+            altura, 
+            peso, 
+            cintura, 
+            abdomen, 
+            quadril, 
+            key 
+        } = this.props.item;
 
+        const imc = calcImc(altura, peso);
         return (
             <div className="form mdc-layout-grid__cell">
-                <FormItem label="Altura (cm): " value={item.altura}
-                            onChange={this.updateInfo.bind(this, "altura")}/>
-                <FormItem label="Peso(Kg): " value={this.props.item.peso}
-                            onChange={this.updateInfo.bind(this, "peso")}/>
-                <FormItem label="Cintura (cm): " value={item.cintura}
-                            onChange={this.updateInfo.bind(this, "cintura")}/>
-                <FormItem label="Abdomen (cm): " value={item.abdomen}
-                            onChange={this.updateInfo.bind(this, "abdomen")}/>
-                <FormItem label="Quadril (cm): " value={item.quadril}
-                            onChange={this.updateInfo.bind(this, "quadril")}/>
-                <FormItem label="IMC: " value={item.imc} disabled={true}/>
-                <div>
+                <FormItem label="Altura (cm): " value={altura}
+                          onChange={this.updateInfo.bind(this, "altura")}
+                />
+                <FormItem label="Peso(Kg): " value={peso}
+                          onChange={this.updateInfo.bind(this, "peso")}
+                />
+                <FormItem label="Cintura (cm): " value={cintura}
+                          onChange={this.updateInfo.bind(this, "cintura")}
+                />
+                <FormItem label="Abdomen (cm): " value={abdomen}
+                          onChange={this.updateInfo.bind(this, "abdomen")}
+                />
+                <FormItem label="Quadril (cm): " value={quadril}
+                          onChange={this.updateInfo.bind(this, "quadril")}
+                />
+                <div className="imc-result"><span>IMC: </span>{ imc }</div>
+                <div className="adicionar-resul">
                     <button className="mdc-button mdc-button--raised" 
                             onClick={() => this.props.save(this.props.item)}>
-                            { this.props.item.key ? 'Salvar' : 'Adicionar' }
+                            { key ? 'Salvar' : 'Adicionar' }
                     </button>
                 </div>
             </div>
