@@ -110,3 +110,11 @@ i.far.fa-trash-alt:hover {
   color: #383737;
   margin: 5px 0;
 }
+
+main {
+  display: flex;
+}
+.measure-container, .element-container  {
+  display: flex;
+  margin-left: 50px;
+}

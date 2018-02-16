@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import 'App.css';
-import MeasureForm from 'modules/measure/measure-form';
-import Header from "modules/header";
-import MeasureList from "modules/measure/measure-list";
+
 import 'configs/firebase';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
+
 import sagas from 'modules/measure/sagas/sagas';
 import {lista, item} from './modules/measure/redux/reducers';
+import {listElement, elementItem} from 'modules/element/redux/reducers';
+
+import Header from "modules/header";
+import Main from './MainContent';
+
+import { BrowserRouter } from 'react-router-dom'
 
 class App extends Component {
   componentWillMount() {
@@ -20,7 +25,7 @@ class App extends Component {
     ];
 
     this.store = createStore(
-        combineReducers({lista, item}),
+        combineReducers({lista, item, listElement, elementItem}),
         composeEnhancers(applyMiddleware(...middlewares))
     );
 
@@ -30,15 +35,14 @@ class App extends Component {
 
   render() {
     return (
+      <BrowserRouter>  
         <Provider store = {this.store}>
           <div className="App">
             <Header/>
-            <div className="content">
-              <MeasureForm/>
-              <MeasureList/>
-            </div>
+            <Main></Main>
           </div>
         </Provider>
+      </BrowserRouter>  
     );
   }
 }

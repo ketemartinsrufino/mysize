@@ -1,11 +1,10 @@
 
 import React, { Component } from 'react';
-import 'material-components-web/dist/material-components-web.css';
-import MeasureListItem from './measure-list-item';
+import ElementListItem from './element-list-item';
 import { connect } from 'react-redux';
 import { loadItems, loadItem, deleteItem } from './redux/actions';
 
-class MeasureElementList extends Component {
+class ElementList extends Component {
 
     componentDidMount() {
         this.props.getItems();
@@ -13,27 +12,34 @@ class MeasureElementList extends Component {
 
     render() {
 
-        const items = this.props.lista.map(
-            (item, indice) => (<MeasureListItem 
+        const items = this.props.listElement.map(
+            (item, indice) => (<ElementListItem 
                                     key={`item-${indice}`} 
                                     item={item} 
                                     onEdit={this.props.getItem.bind(this, item.key)}
-                                    onDelete={this.props.delete.bind(this, item.key)}
+                                    onDisable={this.props.delete.bind(this, item.key)}
                                 /> )
         );
 
+        const emptyItem = <ElementListItem 
+                            key={`item-empty`} 
+                            item={{description: "Nenhum item cadastrado"}} 
+                        />
         return (
             <div className="list">
                 <ul>
-                    {items}
+                    {items && items.length ? items : emptyItem}
                 </ul>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => ({lista: state.lista});
-
+const mapStateToProps = (state) => {
+    return {
+        listElement: state.listElement
+    }
+};
 const mapDispatchToProps = dispatch => {
     return {
         getItems: () => dispatch(loadItems()),
@@ -43,4 +49,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default  connect( mapStateToProps, mapDispatchToProps )(MeasureList);
+export default connect( mapStateToProps, mapDispatchToProps )(ElementList);

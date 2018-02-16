@@ -12,11 +12,13 @@ const MeasureListItem = ( { item, onEdit, onDelete } ) => {
         borderLeft: `8px solid ${imcClass.color}`,
         title: imcClass.description,
     }
-    const infos = Object.keys(item).map((key) =>{
+    const infos = Object.keys(item).map((key) => {
         if(key !== 'key' && item[key]) {
             return <div> {itemLabels[key]}: {item[key]} </div> ;
+        }else {
+            return '';
         }
-    })
+    });
     return (
         <li className="list-item" key={item.key} style={styles}>
             <i className="far fa-trash-alt" onClick={onDelete}> X</i>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FormItem from './measure-form-item';
+import FormItem from 'modules/generic-components/form-item';
 import { calcImc } from '../utils/imc';
 import { connect } from 'react-redux';
 import { saveItem, updateLocalItem } from './redux/actions';
