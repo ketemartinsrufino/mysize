@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import ElementListItem from './element-list-item';
 import { connect } from 'react-redux';
-import { loadItems, loadItem, deleteItem } from './redux/actions';
+import { loadElements, loadItem, deleteItem } from './redux/actions';
 
 class ElementList extends Component {
 
@@ -42,7 +42,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        getItems: () => dispatch(loadItems()),
+        getItems: () => dispatch(loadElements()),
         getItem: (key) => dispatch(loadItem(key)),
         delete: (key) => dispatch(deleteItem(key))
 

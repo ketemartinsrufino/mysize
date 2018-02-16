@@ -10,7 +10,7 @@ export const actionTypes = {
     UPDATE_LOCAL_ITEM: 'UPDATE_LOCAL_ELEMENT_ITEM',
     CLEAR_FORM: 'CLEAR_FORM_ELEMENT',
 }
-export const loadItems = () => {
+export const loadElements = () => {
     return {  
         type: actionTypes.LOAD_LIST,
     }

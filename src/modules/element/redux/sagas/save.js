@@ -1,5 +1,5 @@
 import {takeLatest, put} from 'redux-saga/effects';
-import {loadItems, clearForm, actionTypes} from '.././actions';
+import {loadElements, clearForm, actionTypes} from '.././actions';
 import { ELEMENT_TABLE } from 'configs/firebase';
 
 function * saveSuccessfull({item}) {
@@ -10,7 +10,7 @@ function * saveSuccessfull({item}) {
         create(item);
     }
     yield put(clearForm());
-    yield put(loadItems());
+    yield put(loadElements());
 }
 
 const create = (data, onComplete) => {
