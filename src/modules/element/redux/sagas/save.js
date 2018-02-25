@@ -1,5 +1,6 @@
 import {takeLatest, put} from 'redux-saga/effects';
-import {loadItems, clearForm, actionTypes} from 'modules/measure/redux/actions';
+import {loadElements, clearForm, actionTypes} from '.././actions';
+import { ELEMENT_TABLE } from 'configs/firebase';
 
 function * saveSuccessfull({item}) {
     if (item.key) {
@@ -9,14 +10,14 @@ function * saveSuccessfull({item}) {
         create(item);
     }
     yield put(clearForm());
-    yield put(loadItems());
+    yield put(loadElements());
 }
 
 const create = (data, onComplete) => {
     const measures = window
         .firebase
         .database()
-        .ref("measures/");
+        .ref(ELEMENT_TABLE);
     measures.push(data, onComplete);
 
 }
@@ -24,7 +25,7 @@ const update = (data) => {
     const measures = window
         .firebase
         .database()
-        .ref(`measures/${data.key}`);
+        .ref(`${ELEMENT_TABLE}/${data.key}`);
     measures.update(data);
 }
 

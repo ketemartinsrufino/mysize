@@ -22,7 +22,7 @@ class MeasureList extends Component {
         );
 
         return (
-            <div className="mdc-list mdc-layout-grid__cell">
+            <div className="list">
                 <ul>
                     {items}
                 </ul>

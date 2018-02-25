@@ -10,3 +10,6 @@ const config = {
 firebase.initializeApp(config);
 
 window.firebase = firebase;
+
+export const MEASURE_TABLE = 'measures';
+export const ELEMENT_TABLE = 'elements';

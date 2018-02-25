@@ -1,8 +1,9 @@
 import {takeLatest,put, call} from 'redux-saga/effects';
-import { showItem, actionTypes } from 'modules/measure/redux/actions';
+import { showItem, actionTypes } from '.././actions';
+import { ELEMENT_TABLE } from 'configs/firebase';
 
 function* getItem(action) {
-    const measures = window.firebase.database().ref(`measures`).child(action.key);
+    const measures = window.firebase.database().ref(ELEMENT_TABLE).child(action.key);
     const payload = yield call(fetchItem, measures);
     payload.key = action.key;
     yield put(showItem(payload));

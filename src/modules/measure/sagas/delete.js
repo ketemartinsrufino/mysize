@@ -1,10 +1,9 @@
 import {takeLatest,put} from 'redux-saga/effects';
-import { actionTypes } from 'modules/measure/redux/actions';
-import { loadItems } from 'modules/measure/redux/actions';
+import { loadItems, actionTypes } from '.././redux/actions';
+import { MEASURE_TABLE } from 'configs/firebase';
 
 function* deleteSuccessfull(action) {
-    console.log('--- deleteSuccessfull, action=', action);
-    window.firebase.database().ref('measures').child(action.key).remove();
+    window.firebase.database().ref(MEASURE_TABLE).child(action.key).remove();
     yield put(loadItems());
 }
 

@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import FormItem from './measure-form-item';
-import { calcImc } from './measure-utils';
+import FormItem from 'modules/generic-components/form-item';
+import { calcImc } from '../utils/imc';
 import { connect } from 'react-redux';
 import { saveItem, updateLocalItem } from './redux/actions';
+import { loadElements } from 'modules/element/redux/actions';
 
 class MeasureForm extends Component {
+
+    componentDidMount() {
+        this.props.getElements();
+    }
 
     updateInfo(field, event) {
         //atualizar via dispatch
@@ -14,34 +19,19 @@ class MeasureForm extends Component {
     };
 
     render() {
-        const { 
-            altura, 
-            peso, 
-            cintura, 
-            abdomen, 
-            quadril, 
-            key 
-        } = this.props.item;
+        const {key} = this.props.item;
 
-        const imc = calcImc(altura, peso);
+        const itens = this.props.listElement.map((element) => {
+            const description = element.description;
+            const descriptionLowerCase = description.toLowerCase();
+            return <FormItem label={`${description}:`} value={descriptionLowerCase}
+                        onChange={this.updateInfo.bind(this, descriptionLowerCase)}
+            />    
+        });
+
         return (
             <div className="form mdc-layout-grid__cell">
-                <FormItem label="Altura (cm): " value={altura}
-                          onChange={this.updateInfo.bind(this, "altura")}
-                />
-                <FormItem label="Peso(Kg): " value={peso}
-                          onChange={this.updateInfo.bind(this, "peso")}
-                />
-                <FormItem label="Cintura (cm): " value={cintura}
-                          onChange={this.updateInfo.bind(this, "cintura")}
-                />
-                <FormItem label="Abdomen (cm): " value={abdomen}
-                          onChange={this.updateInfo.bind(this, "abdomen")}
-                />
-                <FormItem label="Quadril (cm): " value={quadril}
-                          onChange={this.updateInfo.bind(this, "quadril")}
-                />
-                <div className="imc-result"><span>IMC: </span>{ imc }</div>
+                {itens}
                 <div className="adicionar-resul">
                     <button className="mdc-button mdc-button--raised" 
                             onClick={() => this.props.save(this.props.item)}>
@@ -53,12 +43,16 @@ class MeasureForm extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({item: state.item});
+const mapStateToProps = (state) => ({
+    item: state.item,
+    listElement: state.listElement
+});
 const mapDispatchToProps = dispatch => {
     return {
         save: (item) => dispatch(saveItem(item)),
         //pesquisar se é a melhor forma ou se era melhor salvar essas mudanças locais no state mesmo
-        updateLocal: (item) => dispatch(updateLocalItem(item)) 
+        updateLocal: (item) => dispatch(updateLocalItem(item)) ,
+        getElements: () => dispatch(loadElements())
     }
 };
 export default  connect( mapStateToProps, mapDispatchToProps )(MeasureForm);
