@@ -12,17 +12,25 @@ class ElementForm extends Component {
         this.props.updateLocal(payload);
     };
 
+    onClick() {
+        (this.props.save(this.props.elementItem));   
+    }
+
     render() {
-        const { key, description } = this.props.elementItem;
+        const { key, description, unit } = this.props.elementItem;
         return (
             <div className="form mdc-layout-grid__cell">
                 <FormItem label="Descrição: " value={description}
                           onChange={this.updateInfo.bind(this, "description")}
                           type="text"
                 />
+                <FormItem label="Unidade de medida: " value={unit}
+                          onChange={this.updateInfo.bind(this, "unit")}
+                          type="text"
+                />
                 <div className="adicionar-resul">
                     <button className="mdc-button mdc-button--raised" 
-                            onClick={() => this.props.save(this.props.elementItem)}>
+                            onClick={this.onClick.bind(this)}>
                             { key ? 'Salvar' : 'Adicionar' }
                     </button>
                 </div>

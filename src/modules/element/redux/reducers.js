@@ -2,8 +2,10 @@
 import {actionTypes} from './actions';
 
 const defaultItem = {
+    id: '',
     key: '',
     description: '',
+    unit: '',
     datacriacao: new Date().getTime(),
 };
 
@@ -17,7 +19,6 @@ export const listElement = (state = [], action) => {
 };
 
 export const elementItem = (state = defaultItem, action) => {
-    // console.log('reducer item. action: ', action);
     switch (action.type) {
         case actionTypes.SHOW_ITEM:
             return action.item;

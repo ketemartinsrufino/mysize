@@ -16,8 +16,8 @@ class ElementList extends Component {
             (item, indice) => (<ElementListItem 
                                     key={`item-${indice}`} 
                                     item={item} 
-                                    onEdit={this.props.getItem.bind(this, item.key)}
-                                    onDisable={this.props.delete.bind(this, item.key)}
+                                    onEdit={this.props.getItem.bind(this, item.id)}
+                                    onDisable={this.props.delete.bind(this, item.id)}
                                 /> )
         );
 

@@ -3,9 +3,10 @@ import { showItem, actionTypes } from '.././actions';
 import { ELEMENT_TABLE } from 'configs/firebase';
 
 function* getItem(action) {
-    const measures = window.firebase.database().ref(ELEMENT_TABLE).child(action.key);
+    console.log('--- action', action)
+    const measures = window.firebase.database().ref(ELEMENT_TABLE).child(action.id);
     const payload = yield call(fetchItem, measures);
-    payload.key = action.key;
+    payload.id = action.id;
     yield put(showItem(payload));
 }
 

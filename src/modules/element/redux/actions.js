@@ -21,9 +21,9 @@ export const showListElements = listElement => {
     type: actionTypes.SHOW_LIST,
     listElement,
 }};
-export const loadItem = (key) => ({
+export const loadItem = (id) => ({
     type: actionTypes.LOAD_ITEM,
-    key
+    id
 });
 export const showItem = (item) => ({
     type: actionTypes.SHOW_ITEM,
@@ -40,9 +40,9 @@ export const updateList = (item) => ({
     item
 });
 
-export const deleteItem = (key) => ({  
+export const deleteItem = (id) => ({  
     type: actionTypes.DELETE,
-    key
+    id
 });
 
 export const updateLocalItem = (item) => ({  

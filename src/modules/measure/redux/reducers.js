@@ -1,13 +1,10 @@
 import {actionTypes} from './actions';
 
 const defaultItem = {
+    id: '',
     key: '',
     datacriacao: new Date().getTime(),
-    peso: '',
-    altura: '',
-    cintura: '',
-    abdomen: '',
-    quadril: '',
+    elements: {},
     imc: '',
 };
 
@@ -25,8 +22,6 @@ export const item = (state = defaultItem, action) => {
     // console.log('reducer item. action: ', action);
     switch (action.type) {
         case actionTypes.SHOW_ITEM:
-            return action.item;
-        case actionTypes.UPDATE_LOCAL_ITEM:
             return action.item;
         case actionTypes.SAVE:
             return action.item;

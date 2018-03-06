@@ -5,7 +5,7 @@ function * saveSuccessfull({item}) {
     if (item.key) {
         update(item);
     } else {
-        delete item.key;
+        delete item.id;
         create(item);
     }
     yield put(clearForm());
@@ -24,7 +24,7 @@ const update = (data) => {
     const measures = window
         .firebase
         .database()
-        .ref(`measures/${data.key}`);
+        .ref(`measures/${data.id}`);
     measures.update(data);
 }
 

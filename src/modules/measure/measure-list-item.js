@@ -13,7 +13,7 @@ const MeasureListItem = ( { item, onEdit, onDelete } ) => {
         title: imcClass.description,
     }
     const infos = Object.keys(item).map((key) => {
-        if(key !== 'key' && item[key]) {
+        if(key !== 'id' && item[key]) {
             return <div> {itemLabels[key]}: {item[key]} </div> ;
         }else {
             return '';

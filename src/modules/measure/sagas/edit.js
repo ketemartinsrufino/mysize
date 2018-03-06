@@ -4,7 +4,7 @@ import { showItem, actionTypes } from 'modules/measure/redux/actions';
 function* getItem(action) {
     const measures = window.firebase.database().ref(`measures`).child(action.key);
     const payload = yield call(fetchItem, measures);
-    payload.key = action.key;
+    payload.id = action.id;
     yield put(showItem(payload));
 }
 

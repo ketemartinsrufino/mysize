@@ -16,8 +16,8 @@ class MeasureList extends Component {
             (item, indice) => (<MeasureListItem 
                                     key={`item-${indice}`} 
                                     item={item} 
-                                    onEdit={this.props.getItem.bind(this, item.key)}
-                                    onDelete={this.props.delete.bind(this, item.key)}
+                                    onEdit={this.props.getItem.bind(this, item.id)}
+                                    onDelete={this.props.delete.bind(this, item.id)}
                                 /> )
         );
 
@@ -36,8 +36,8 @@ const mapStateToProps = (state) => ({lista: state.lista});
 const mapDispatchToProps = dispatch => {
     return {
         getItems: () => dispatch(loadItems()),
-        getItem: (key) => dispatch(loadItem(key)),
-        delete: (key) => dispatch(deleteItem(key))
+        getItem: (id) => dispatch(loadItem(id)),
+        delete: (id) => dispatch(deleteItem(id))
 
     }
 };

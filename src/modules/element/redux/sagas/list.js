@@ -5,7 +5,7 @@ import { ELEMENT_TABLE } from 'configs/firebase';
 function* listElementSuccessfull() {
     const elements = yield window.firebase.database().ref(ELEMENT_TABLE);
     const payload = yield call(fetchList, elements);
-    let list = Object.keys(payload || {}).map((k) => ({...payload[k], key: k}));
+    let list = Object.keys(payload || {}).map((k) => ({...payload[k], id: k}));
     
     yield put(showListElements(list));
 }

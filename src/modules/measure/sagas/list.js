@@ -4,7 +4,7 @@ import { showList, actionTypes } from 'modules/measure/redux/actions';
 function* listSuccessfull() {
     const measures = yield window.firebase.database().ref("measures/");
     const payload = yield call(fetchList, measures);
-    let list = Object.keys(payload || {}).map((k) => ({...payload[k], key: k}));
+    let list = Object.keys(payload || {}).map((k) => ({...payload[k], id: k}));
     yield put(showList(list));
 }
 

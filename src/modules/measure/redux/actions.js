@@ -7,7 +7,6 @@ export const actionTypes = {
     SAVE: 'SAVE',
     DELETE: 'DELETE',
     UPDATE_LIST: 'UPDATE_LIST',
-    UPDATE_LOCAL_ITEM: 'UPDATE_LOCAL_ITEM',
     CLEAR_FORM: 'CLEAR_FORM',
 
 }
@@ -21,11 +20,11 @@ export const showList = lista => ({
     type: actionTypes.SHOW_LIST,
     lista,
 });
-export const loadItem = (key) => {
-    console.log('--- key:', key);
+export const loadItem = (id) => {
+    // console.log('--- key:', key);
     return {
     type: actionTypes.LOAD_ITEM,
-    key
+    id
 }};
 export const showItem = (item) => ({
     type: actionTypes.SHOW_ITEM,
@@ -42,14 +41,9 @@ export const updateList = (item) => ({
     item
 });
 
-export const deleteItem = (key) => ({  
+export const deleteItem = (id) => ({  
     type: actionTypes.DELETE,
-    key
-});
-
-export const updateLocalItem = (item) => ({  
-    type: actionTypes.UPDATE_LOCAL_ITEM,
-    item
+    id
 });
 
 export const clearForm = () => ({  

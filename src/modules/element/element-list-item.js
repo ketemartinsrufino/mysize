@@ -12,7 +12,7 @@ const ElementListItem = ( { item, onEdit, onDisable } ) => {
         <li className="list-item" key={item.key}>
             {deleteButton}
             <div className="item-info" onClick={onEdit}>
-                {item.description}
+                {`${item.description} (${item.unit})`}
             </div>
         </li>
     );

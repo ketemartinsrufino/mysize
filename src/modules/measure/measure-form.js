@@ -2,31 +2,44 @@ import React, { Component } from 'react';
 import FormItem from 'modules/generic-components/form-item';
 import { calcImc } from '../utils/imc';
 import { connect } from 'react-redux';
-import { saveItem, updateLocalItem } from './redux/actions';
+import { saveItem } from './redux/actions';
 import { loadElements } from 'modules/element/redux/actions';
 
 class MeasureForm extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            elements: {}
+        }
+    }
     componentDidMount() {
         this.props.getElements();
+        const transformToObj = (anterior, atual) => {
+            const key = atual.id
+            return {key: atual}
+        };
+        this.setState({elements: this.props.listElement.reducer(transformToObj,{})});
     }
 
-    updateInfo(field, event) {
-        //atualizar via dispatch
+    updateInfo(key, event) {
+        console.log('event:', event.target.value)
+        console.log('key:', key)
         const payload = { ...this.props.item };
-        payload[field] = event.target.value;        
-        this.props.updateLocal(payload);
+        payload[key] = event.target.value;
     };
 
     render() {
         const {key} = this.props.item;
 
         const itens = this.props.listElement.map((element) => {
-            const description = element.description;
-            const descriptionLowerCase = description.toLowerCase();
-            return <FormItem label={`${description}:`} value={descriptionLowerCase}
-                        onChange={this.updateInfo.bind(this, descriptionLowerCase)}
-            />    
+            return (
+                <FormItem 
+                    label={`${element.description} (${element.unit}):`}
+                    value={this.state.elements[element.key]}
+                    onChange={this.updateInfo.bind(this, element.key)}
+                />
+            )    
         });
 
         return (
@@ -50,8 +63,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => {
     return {
         save: (item) => dispatch(saveItem(item)),
-        //pesquisar se é a melhor forma ou se era melhor salvar essas mudanças locais no state mesmo
-        updateLocal: (item) => dispatch(updateLocalItem(item)) ,
+        // //pesquisar se é a melhor forma ou se era melhor salvar essas mudanças locais no state mesmo
+        // updateLocal: (item) => dispatch(updateLocalItem(item)) ,
         getElements: () => dispatch(loadElements())
     }
 };

@@ -3,10 +3,11 @@ import {loadElements, clearForm, actionTypes} from '.././actions';
 import { ELEMENT_TABLE } from 'configs/firebase';
 
 function * saveSuccessfull({item}) {
-    if (item.key) {
+    if (item.id) {
         update(item);
     } else {
-        delete item.key;
+        delete item.id;
+        item.key = item.description.toLowerCase();
         create(item);
     }
     yield put(clearForm());
@@ -25,7 +26,7 @@ const update = (data) => {
     const measures = window
         .firebase
         .database()
-        .ref(`${ELEMENT_TABLE}/${data.key}`);
+        .ref(`${ELEMENT_TABLE}/${data.id}`);
     measures.update(data);
 }
 

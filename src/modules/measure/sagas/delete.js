@@ -3,7 +3,7 @@ import { loadItems, actionTypes } from '.././redux/actions';
 import { MEASURE_TABLE } from 'configs/firebase';
 
 function* deleteSuccessfull(action) {
-    window.firebase.database().ref(MEASURE_TABLE).child(action.key).remove();
+    window.firebase.database().ref(MEASURE_TABLE).child(action.id).remove();
     yield put(loadItems());
 }
 
